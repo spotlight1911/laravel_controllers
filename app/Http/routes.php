@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+//Route::get('/tasks','TaskController@index')->name('tasks.index');
+//Route::post('/tasks','TaskController@store')->name('');
+
+// OR >>>>
+
+Route::resource('tasks','TaskController',[
+    'except'=>['create','show'],
+]);
