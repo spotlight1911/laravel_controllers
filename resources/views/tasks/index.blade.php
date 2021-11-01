@@ -14,7 +14,6 @@
                 <!-- Форма новой задачи -->
                     <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
-
                     <!-- Имя задачи -->
                         <div class="form-group">
                             <label for="task" class="col-sm-3 control-label">Задача</label>
@@ -61,7 +60,12 @@
                                         </td>
 
                                         <td>
-                                            <!-- TODO: Кнопка Удалить -->
+                                            <form method="post" action="{{route('tasks.destroy',$task->id)}}">
+                                                {{csrf_field()}}
+                                                {{method_field('DELETE')}}
+                                                <button class="btn-danger"> <i class="fa fa-trash"></i></button>
+
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

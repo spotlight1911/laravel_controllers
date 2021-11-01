@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -90,8 +96,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $tasks)
     {
-        //
+        $this->authorize('destroy',$tasks);
+        $tasks->delete();
+        return redirect(route('tasks.index'));
     }
 }
