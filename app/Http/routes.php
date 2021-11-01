@@ -27,3 +27,14 @@ Route::get('/home', 'HomeController@index');
 Route::resource('tasks','TaskController',[
     'except'=>['create','show'],
 ]);
+
+//Route::put('/tasks/{task}',function (\Illuminate\Http\Request $request, \App\Models\Task $task){
+//    $this->validate($request, [
+//        'name' => 'required|max:255',
+//    ]);
+//        $user = Auth::user()->tasks()->save([
+//            'id'=>$request->id,
+//            'name'=>$request->name,
+//        ]);
+//        return redirect(route('tasks.index'));
+//})->name('tasks.update');

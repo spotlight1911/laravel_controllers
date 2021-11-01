@@ -67,6 +67,14 @@
 
                                             </form>
                                         </td>
+                                        <td>
+                                            <form method="post"
+                                                  action="{{route('tasks.edit', $task->id)}}">
+                                                {{ csrf_field() }}
+                                                {{ method_field('GET') }}
+                                                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

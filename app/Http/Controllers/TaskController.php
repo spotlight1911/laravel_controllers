@@ -47,35 +47,22 @@ class TaskController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
-
-
-
       $user = Auth::user()->tasks()->create([
           'name'=>$request->name
           ]);
       return redirect(route('tasks.index'));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $tasks)
     {
-        //
+        $this->authorize('edit',$tasks);
+        return view('tasks.edit',[
+            'task'=> $tasks ]);
     }
 
     /**
@@ -85,9 +72,15 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $tasks)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
+        Auth::user()->tasks()->where(['id'=>$tasks->id])->update([
+            'name'=>$request->name
+        ]);
+        return redirect(route('tasks.index'));
     }
 
     /**
